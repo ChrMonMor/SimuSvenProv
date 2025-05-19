@@ -1,24 +1,25 @@
-<?php 
+<?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
+    // Fetch all tags
     public function index()
     {
         return Tag::all();
     }
 
+    // Fetch a single tag by its ID
     public function show($id)
     {
-        $tag = Tag::findOrFail($id);
-        return response()->json($tag);
+        return Tag::findOrFail($id);
     }
 
+    // Create a new tag
     public function store(Request $request)
     {
         $request->validate([
@@ -32,6 +33,7 @@ class TagController extends Controller
         return response()->json($tag, 201);
     }
 
+    // Update an existing tag
     public function update(Request $request, $id)
     {
         $tag = Tag::findOrFail($id);
@@ -47,6 +49,7 @@ class TagController extends Controller
         return response()->json($tag);
     }
 
+    // Delete a tag
     public function destroy($id)
     {
         $tag = Tag::findOrFail($id);

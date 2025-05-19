@@ -1,25 +1,25 @@
 <?php
 
-// app/Models/Item.php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $table = 'items';
-    protected $primaryKey = 'item_id';
-    public $timestamps = false;
+    use HasFactory;
+
+    protected $table = 'items'; // Optional, Laravel automatically uses the plural of the model name
+    protected $primaryKey = 'item_id'; // Set the primary key field if it's not 'id'
+    public $timestamps = false; // Disable timestamps since the table uses custom fields
 
     protected $fillable = [
         'customer_id',
-        'tag_id',
-        'type_id',
-        'item_created_at',
-        'item_edit_at',
         'item_title',
         'item_description',
-        'item_origin_date',
+        'item_release_date',
+        'tag_id',
+        'type_id',
         'item_barcode_ean',
         'item_barcode_upc',
         'item_price',
@@ -29,19 +29,25 @@ class Item extends Model
         'item_model',
     ];
 
-    public function customer() {
+    // Define relationships
+
+    public function customer()
+    {
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function tag() {
+    public function tag()
+    {
         return $this->belongsTo(Tag::class, 'tag_id');
     }
 
-    public function type() {
+    public function type()
+    {
         return $this->belongsTo(Type::class, 'type_id');
     }
 
-    public function categorySubcategory() {
-        return $this->belongsTo(CategorySubcategory::class, 'item_category', 'category_subcategory_id');
+    public function categorySubcategory()
+    {
+        return $this->belongsTo(CategorySubcategory::class, 'category_subcategory_id');
     }
 }
