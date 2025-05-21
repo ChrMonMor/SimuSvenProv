@@ -26,7 +26,7 @@ class Item extends Model
         'item_price_currency',
         'category_subcategory_id',
         'item_brand',
-        'item_model',
+        'platform_id',
     ];
 
     // Define relationships
@@ -49,5 +49,10 @@ class Item extends Model
     public function categorySubcategory()
     {
         return $this->belongsTo(CategorySubcategory::class, 'category_subcategory_id');
+    }
+
+    public function platform()
+    {
+        return $this->belongsTo(Platform::class, 'platform_id');
     }
 }

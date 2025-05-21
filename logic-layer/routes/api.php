@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategorySubcategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TypeController;
@@ -16,6 +17,7 @@ Route::apiResource('categories-subcategories', CategorySubcategoryController::cl
 Route::apiResource('types', TypeController::class);
 Route::apiResource('tags', TagController::class);
 Route::apiResource('items', ItemController::class);
+Route::apiResource('platforms', PlatformController::class);
 
 // testing
 Route::get('/ping', function () {

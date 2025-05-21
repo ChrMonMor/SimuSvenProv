@@ -11,13 +11,13 @@ class ItemController extends Controller
     public function index()
     {
         // Eager load relationships to avoid N+1 query problem
-        return Item::with(['customer', 'tag', 'type', 'categorySubcategory'])->get();
+        return Item::with(['customer', 'tag', 'type', 'categorySubcategory', 'platform'])->get();
     }
 
     // Fetch a single item by its ID
     public function show($id)
     {
-        return Item::with(['customer', 'tag', 'type', 'categorySubcategory'])->findOrFail($id);
+        return Item::with(['customer', 'tag', 'type', 'categorySubcategory', 'platform'])->findOrFail($id);
     }
 
     // Create a new item
@@ -36,7 +36,7 @@ class ItemController extends Controller
             'item_price_currency' => 'nullable|string|max:3',
             'category_subcategory_id' => 'required|exists:categories_subcategories,category_subcategory_id',
             'item_brand' => 'nullable|string|max:255',
-            'item_model' => 'nullable|string|max:255',
+            'platform_id' => 'nullable|string|max:255',
         ]);
 
         $item = Item::create([
@@ -52,7 +52,7 @@ class ItemController extends Controller
             'item_price_currency' => $request->item_price_currency,
             'category_subcategory_id' => $request->category_subcategory_id,
             'item_brand' => $request->item_brand,
-            'item_model' => $request->item_model,
+            'platform_id' => $request->platform_id,
         ]);
 
         return response()->json($item, 201);
@@ -76,7 +76,7 @@ class ItemController extends Controller
             'item_price_currency' => 'nullable|string|max:3',
             'category_subcategory_id' => 'required|exists:categories_subcategories,category_subcategory_id',
             'item_brand' => 'nullable|string|max:255',
-            'item_model' => 'nullable|string|max:255',
+            'platform_id' => 'nullable|string|max:255',
         ]);
 
         $item->update([
@@ -92,7 +92,7 @@ class ItemController extends Controller
             'item_price_currency' => $request->item_price_currency,
             'category_subcategory_id' => $request->category_subcategory_id,
             'item_brand' => $request->item_brand,
-            'item_model' => $request->item_model,
+            'platform_id' => $request->platform_id,
         ]);
 
         return response()->json($item);
