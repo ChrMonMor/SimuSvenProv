@@ -11,13 +11,13 @@ class ItemController extends Controller
     public function index()
     {
         // Eager load relationships to avoid N+1 query problem
-        return Item::with(['customer', 'tag', 'type', 'categorySubcategory', 'platform'])->get();
+        return Item::with(['customer', 'type', 'categorySubcategory', 'platform'])->get();
     }
 
     // Fetch a single item by its ID
     public function show($id)
     {
-        return Item::with(['customer', 'tag', 'type', 'categorySubcategory', 'platform'])->findOrFail($id);
+        return Item::with(['customer', 'type', 'categorySubcategory', 'platform'])->findOrFail($id);
     }
 
     // Create a new item
@@ -28,7 +28,6 @@ class ItemController extends Controller
             'item_title' => 'required|string|max:255',
             'item_description' => 'nullable|string',
             'item_release_date' => 'nullable|date',
-            'tag_id' => 'required|exists:tags,tag_id',
             'type_id' => 'required|exists:types,type_id',
             'item_barcode_ean' => 'nullable|string|max:20',
             'item_barcode_upc' => 'nullable|string|max:20',
@@ -44,7 +43,6 @@ class ItemController extends Controller
             'item_title' => $request->item_title,
             'item_description' => $request->item_description,
             'item_release_date' => $request->item_release_date,
-            'tag_id' => $request->tag_id,
             'type_id' => $request->type_id,
             'item_barcode_ean' => $request->item_barcode_ean,
             'item_barcode_upc' => $request->item_barcode_upc,
@@ -68,7 +66,6 @@ class ItemController extends Controller
             'item_title' => 'required|string|max:255',
             'item_description' => 'nullable|string',
             'item_release_date' => 'nullable|date',
-            'tag_id' => 'required|exists:tags,tag_id',
             'type_id' => 'required|exists:types,type_id',
             'item_barcode_ean' => 'nullable|string|max:20',
             'item_barcode_upc' => 'nullable|string|max:20',
@@ -84,7 +81,6 @@ class ItemController extends Controller
             'item_title' => $request->item_title,
             'item_description' => $request->item_description,
             'item_release_date' => $request->item_release_date,
-            'tag_id' => $request->tag_id,
             'type_id' => $request->type_id,
             'item_barcode_ean' => $request->item_barcode_ean,
             'item_barcode_upc' => $request->item_barcode_upc,

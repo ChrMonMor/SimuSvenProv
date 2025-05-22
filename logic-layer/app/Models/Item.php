@@ -18,7 +18,6 @@ class Item extends Model
         'item_title',
         'item_description',
         'item_release_date',
-        'tag_id',
         'type_id',
         'item_barcode_ean',
         'item_barcode_upc',
@@ -34,11 +33,6 @@ class Item extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
-    }
-
-    public function tag()
-    {
-        return $this->belongsTo(Tag::class, 'tag_id');
     }
 
     public function type()
