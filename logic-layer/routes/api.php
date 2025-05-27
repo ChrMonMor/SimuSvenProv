@@ -18,7 +18,7 @@ Route::apiResource('types', TypeController::class);
 Route::apiResource('items', ItemController::class);
 Route::apiResource('platforms', PlatformController::class);
 
-Route::post('/login', [AuthController::class,'login']);
+Route::post('/login', [AuthController::class,'login'])->middleware('throttle:5,1');
 Route::post('/register', [AuthController::class,'register']);
 
 

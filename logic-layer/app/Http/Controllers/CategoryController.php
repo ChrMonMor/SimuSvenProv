@@ -16,12 +16,15 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'customer_id' => 'required|integer',
             'category_title' => 'required|string|max:255',
         ]);
-   
-        return Category::create($request->all());
-   //      return Category::create($request->all());
+
+        $category = Category::create([
+            'customer_id' => $request->customer_id,
+            'category_title' => $request->category_title,
+        ]);
+
+        return $category;
     }
 
     public function show($id)

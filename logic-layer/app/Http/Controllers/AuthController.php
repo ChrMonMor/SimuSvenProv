@@ -23,9 +23,11 @@ class AuthController extends Controller
             'customer_password' => Hash::make($request->customer_password),
         ]);
 
-        $token = $customer->createToken('api_token')->plainTextToken;
+        return $customer; 
+        
+        // $token = $customer->createToken('api_token')->plainTextToken;
 
-        return response()->json(['token' => $token, 'customer' => $customer], 201);
+        // return response()->json(['token' => $token, 'customer' => $customer], 201);
     }
 
     public function login(Request $request)
@@ -37,15 +39,19 @@ class AuthController extends Controller
 
         $customer = Customer::where('customer_email', $request->customer_email)->first();
 
+        
         if (!$customer || !Hash::check($request->customer_password, $customer->customer_password)) {
             throw ValidationException::withMessages([
                 'customer_email' => ['The provided credentials are incorrect.'],
             ]);
         }
 
-        $token = $customer->createToken('api_token')->plainTextToken;
+        return $customer; 
 
-        return response()->json(['token' => $token, 'customer' => $customer]);
+        // $token = $customer->createToken('api_token')->plainTextToken;
+
+        // return response()->json(['token' => '$token', 'customer' => $customer]);
+        
     }
 
     public function logout(Request $request)

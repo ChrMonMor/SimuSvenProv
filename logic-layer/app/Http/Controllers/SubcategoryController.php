@@ -19,8 +19,9 @@ class SubcategoryController extends Controller
             'customer_id' => 'required|integer',
             'subcategory_title' => 'required|string|max:255',
         ]);
+        $subcategory = Subcategory::create($request->all());
 
-        return Subcategory::create($request->all());
+        return $subcategory;
     }
 
     public function show($id)
