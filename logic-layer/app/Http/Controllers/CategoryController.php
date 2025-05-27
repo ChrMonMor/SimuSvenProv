@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index()
-    {
-        return Category::with('subcategories')->get();
+    {        
+        return Category::all();
+        // return Category::with('subcategories')->get();
     }
 
     public function store(Request $request)
@@ -18,8 +19,9 @@ class CategoryController extends Controller
             'customer_id' => 'required|integer',
             'category_title' => 'required|string|max:255',
         ]);
-
+   
         return Category::create($request->all());
+   //      return Category::create($request->all());
     }
 
     public function show($id)

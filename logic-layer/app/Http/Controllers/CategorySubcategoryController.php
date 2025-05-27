@@ -9,7 +9,8 @@ class CategorySubcategoryController extends Controller
 {
     public function index()
     {
-        return CategorySubcategory::with(['category', 'subcategory'])->get();
+        return CategorySubcategory::all();
+        // return CategorySubcategory::with(['category', 'subcategory'])->get();
     }
 
     public function store(Request $request)

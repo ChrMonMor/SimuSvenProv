@@ -11,7 +11,8 @@ class ItemController extends Controller
     public function index()
     {
         // Eager load relationships to avoid N+1 query problem
-        return Item::with(['customer', 'type', 'categorySubcategory', 'platform'])->get();
+        return item::all();
+        // return Item::with(['customer', 'type', 'categorySubcategory', 'platform'])->get();
     }
 
     // Fetch a single item by its ID
