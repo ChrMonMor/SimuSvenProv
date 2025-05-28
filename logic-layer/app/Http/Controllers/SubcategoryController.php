@@ -24,6 +24,13 @@ class SubcategoryController extends Controller
         return $subcategory;
     }
 
+    
+    // Fetch all from one Customer
+    public function findAll($id) 
+    {
+        return Subcategory::where('customer_id', $id)->get();
+    }
+
     public function show($id)
     {
         return Subcategory::with('categories')->findOrFail($id);

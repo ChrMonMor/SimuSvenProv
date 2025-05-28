@@ -22,6 +22,16 @@ class CategorySubcategoryController extends Controller
         return CategorySubcategory::create($request->all());
     }
 
+    // Fetch all from one Customer
+
+    public function findAll($id)
+    {
+        return CategorySubcategory::whereHas('category', function ($query) use ($id) {
+                $query->where('customer_id', $id);
+            })
+            ->get(['category_subcategory_id', 'category_id', 'subcategory_id']);
+    }
+
     public function show($id)
     {
         return CategorySubcategory::with(['category', 'subcategory'])->findOrFail($id);

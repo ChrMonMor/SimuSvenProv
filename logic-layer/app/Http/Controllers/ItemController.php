@@ -21,22 +21,28 @@ class ItemController extends Controller
         return Item::with(['customer', 'type', 'categorySubcategory', 'platform'])->findOrFail($id);
     }
 
+    // Fetch all from one Customer
+    public function findAll($id) 
+    {
+        return Item::where('customer_id', $id)->get();
+    }
+
     // Create a new item
     public function store(Request $request)
     {
         $request->validate([
             'customer_id' => 'required|exists:customers,customer_id',
-            'item_title' => 'required|string|max:255',
+            'item_title' => 'nullable|string|max:255',
             'item_description' => 'nullable|string',
             'item_release_date' => 'nullable|date',
-            'type_id' => 'required|exists:types,type_id',
+            'type_id' => 'nullable|exists:types,type_id',
             'item_barcode_ean' => 'nullable|string|max:20',
             'item_barcode_upc' => 'nullable|string|max:20',
             'item_price' => 'nullable|numeric',
             'item_price_currency' => 'nullable|string|max:3',
-            'category_subcategory_id' => 'required|exists:categories_subcategories,category_subcategory_id',
+            'category_subcategory_id' => 'nullable|exists:categories_subcategories,category_subcategory_id',
             'item_brand' => 'nullable|string|max:255',
-            'platform_id' => 'nullable|string|max:255',
+            'platform_id' => 'nullable|numeric',
         ]);
 
         $item = Item::create([
@@ -64,17 +70,17 @@ class ItemController extends Controller
 
         $request->validate([
             'customer_id' => 'required|exists:customers,customer_id',
-            'item_title' => 'required|string|max:255',
+            'item_title' => 'nullable|string|max:255',
             'item_description' => 'nullable|string',
             'item_release_date' => 'nullable|date',
-            'type_id' => 'required|exists:types,type_id',
+            'type_id' => 'nullable|exists:types,type_id',
             'item_barcode_ean' => 'nullable|string|max:20',
             'item_barcode_upc' => 'nullable|string|max:20',
             'item_price' => 'nullable|numeric',
             'item_price_currency' => 'nullable|string|max:3',
-            'category_subcategory_id' => 'required|exists:categories_subcategories,category_subcategory_id',
+            'category_subcategory_id' => 'nullable|exists:categories_subcategories,category_subcategory_id',
             'item_brand' => 'nullable|string|max:255',
-            'platform_id' => 'nullable|string|max:255',
+            'platform_id' => 'nullable|numeric',
         ]);
 
         $item->update([
@@ -103,4 +109,5 @@ class ItemController extends Controller
 
         return response()->json(['message' => 'Item deleted successfully']);
     }
+
 }

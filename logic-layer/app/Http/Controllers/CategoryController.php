@@ -26,6 +26,12 @@ class CategoryController extends Controller
 
         return $category;
     }
+    
+    // Fetch all from one Customer
+    public function findAll($id) 
+    {
+        return Category::where('customer_id', $id)->get();
+    }
 
     public function show($id)
     {

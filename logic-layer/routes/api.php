@@ -18,9 +18,13 @@ Route::apiResource('types', TypeController::class);
 Route::apiResource('items', ItemController::class);
 Route::apiResource('platforms', PlatformController::class);
 
-Route::post('/login', [AuthController::class,'login'])->middleware('throttle:5,1');
+Route::post('/login', [AuthController::class,'login']);
 Route::post('/register', [AuthController::class,'register']);
 
+Route::post('/items/{id}', [ItemController::class, 'findAll']);
+Route::post('/categories/{id}', [CategoryController::class, 'findAll']);
+Route::post('/subcategories/{id}', [SubcategoryController::class, 'findAll']);
+Route::post('/categories-subcategories/{id}', [CategorySubcategoryController::class, 'findAll']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class,'logout']);
