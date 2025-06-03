@@ -1,0 +1,62 @@
+CREATE TABLE customers (
+customer_id SERIAL PRIMARY KEY,
+customer_username VARCHAR(50) NOT NULL,
+customer_password VARCHAR(255) NOT NULL,
+customer_email VARCHAR(255) UNIQUE NOT NULL,
+customer_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE types (
+type_id SERIAL PRIMARY KEY,
+type_title VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE categories (
+category_id SERIAL PRIMARY KEY,
+customer_id INT NOT NULL,
+category_title VARCHAR(255) NOT NULL,
+FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
+);
+
+CREATE TABLE subcategories (
+subcategory_id SERIAL PRIMARY KEY,
+customer_id INT NOT NULL,
+subcategory_title VARCHAR(255) NOT NULL,
+FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
+);
+
+CREATE TABLE categories_subcategories (
+category_subcategory_id SERIAL PRIMARY KEY,
+category_id INT NOT NULL,
+subcategory_id INT NOT NULL,
+FOREIGN KEY (category_id ) REFERENCES categories(category_id),
+FOREIGN KEY (subcategory_id ) REFERENCES subcategories(subcategory_id )
+);
+
+CREATE TABLE platforms (
+platform_id SERIAL PRIMARY KEY,
+platform_title VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE items (
+item_id SERIAL PRIMARY KEY,
+customer_id INT NOT NULL,
+item_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+item_edit_at TIMESTAMP,
+item_title VARCHAR(255),
+item_description TEXT,
+item_release_date DATE,
+platform_id INT NOT NULL,
+type_id INT NOT NULL,
+item_barcode_ean VARCHAR(20),
+item_barcode_upc VARCHAR(20),
+item_price INT,
+item_price_currency VARCHAR(3),
+category_subcategory_id INT NOT NULL,
+item_brand VARCHAR(255),
+item_model VARCHAR(255),
+FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE,
+FOREIGN KEY (type_id) REFERENCES types(type_id),
+FOREIGN KEY (platform_id) REFERENCES platforms(platform_id),
+FOREIGN KEY (category_subcategory_id) REFERENCES categories_subcategories(category_subcategory_id)
+);

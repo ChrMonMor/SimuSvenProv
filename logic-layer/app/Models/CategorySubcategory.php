@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CategorySubcategory extends Model
 {
+    use HasFactory;
     protected $table = 'categories_subcategories';
     protected $primaryKey = 'category_subcategory_id';
     protected $fillable = ['category_id', 'subcategory_id'];

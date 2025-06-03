@@ -7,19 +7,16 @@ use App\Models\Customer;
 use App\Models\Type;
 use App\Models\CategorySubcategory;
 use App\Models\Platform;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ItemControllerTest extends TestCase
 {
-    use RefreshDatabase;
-    public $url = '10.150.56.50';
     /** @test */
     public function it_lists_all_items()
     {
         Item::factory()->count(3)->create();
 
-        $response = $this->getJson("{$this->url}/api/items");
+        $response = $this->getJson("/api/items");
 
         $response->assertOk()
                  ->assertJsonCount(3);
@@ -30,7 +27,7 @@ class ItemControllerTest extends TestCase
     {
         $item = Item::factory()->create();
 
-        $response = $this->getJson("{$this->url}/api/items/{$item->id}");
+        $response = $this->getJson("/api/items/{$item->id}");
 
         $response->assertOk()
                  ->assertJsonFragment(['id' => $item->id]);
@@ -59,7 +56,7 @@ class ItemControllerTest extends TestCase
             'platform_id' => $platform->id,
         ];
 
-        $response = $this->postJson("{$this->url}/api/items", $payload);
+        $response = $this->postJson("/api/items", $payload);
 
         $response->assertCreated()
                  ->assertJsonFragment(['item_title' => 'Test Item']);
@@ -71,7 +68,7 @@ class ItemControllerTest extends TestCase
         $item = Item::factory()->create();
         $customer = Customer::factory()->create();
 
-        $response = $this->putJson("{$this->url}/api/items/{$item->id}", [
+        $response = $this->putJson("/api/items/{$item->id}", [
             'customer_id' => $customer->customer_id,
             'item_title' => 'Updated Title',
         ]);
@@ -85,7 +82,7 @@ class ItemControllerTest extends TestCase
     {
         $item = Item::factory()->create();
 
-        $response = $this->deleteJson("{$this->url}/api/items/{$item->id}");
+        $response = $this->deleteJson("/api/items/{$item->id}");
 
         $response->assertOk()
                  ->assertJson(['message' => 'Item deleted successfully']);
